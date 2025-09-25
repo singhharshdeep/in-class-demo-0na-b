@@ -100,9 +100,13 @@ export default function Home() {
         }}
         placeholder="Search Movies"
       />
-      {filteredMovies.map((movie) => {
-        return <MovieCard movie={movie} />;
-      })}
+      {filteredMovies.length > 0 ? (
+        filteredMovies.map((movie) => {
+          return <MovieCard movie={movie} />;
+        })
+      ) : (
+        <p>No movies found</p>
+      )}
     </div>
   );
 }
