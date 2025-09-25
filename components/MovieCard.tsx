@@ -5,6 +5,10 @@ type MovieCardProps = {
 };
 
 export default function MovieCard({ movie }: MovieCardProps) {
+  function handleClick() {
+    alert(movie.overview);
+  }
+
   return (
     <div
       style={{
@@ -13,6 +17,7 @@ export default function MovieCard({ movie }: MovieCardProps) {
         height: 400,
         marginTop: 16,
       }}
+      onClick={handleClick}
     >
       <img
         style={{
