@@ -76,6 +76,17 @@ export default function Home() {
   ];
 
   const [filteredMovies, setFilteredMovies] = useState(movies);
+  const [favoriteMovies, setFavoriteMovies] = useState<Movie[]>([]);
+
+  function addToFavorites(movie: Movie) {
+    setFavoriteMovies([...favoriteMovies, movie]);
+  }
+
+  function removeFromFavorites(movieToRemove: Movie) {
+    setFavoriteMovies(
+      favoriteMovies.filter((movie) => movie.id !== movieToRemove.id)
+    );
+  }
 
   function searchMovies(searchValue: string) {
     // filter function
@@ -102,7 +113,38 @@ export default function Home() {
       />
       {filteredMovies.length > 0 ? (
         filteredMovies.map((movie) => {
-          return <MovieCard movie={movie} />;
+          return (
+            <MovieCard
+              addToFavorites={addToFavorites}
+              removeFromFavorites={removeFromFavorites}
+              isFavorite={favoriteMovies.includes(movie)}
+              movie={movie}
+            />
+          );
+        })
+      ) : (
+        <p>No movies found</p>
+      )}
+
+      <div
+        style={{
+          marginTop: 16,
+          fontSize: 24,
+        }}
+      >
+        Favorite Movies
+      </div>
+
+      {favoriteMovies.length > 0 ? (
+        favoriteMovies.map((movie) => {
+          return (
+            <MovieCard
+              removeFromFavorites={removeFromFavorites}
+              isFavorite={true}
+              addToFavorites={addToFavorites}
+              movie={movie}
+            />
+          );
         })
       ) : (
         <p>No movies found</p>
