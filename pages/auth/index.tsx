@@ -1,10 +1,13 @@
+import { AuthContext } from "@/context/AuthContext";
 import { useRouter } from "next/router";
-import React, { ChangeEvent, FormEvent, useState } from "react";
+import React, { ChangeEvent, FormEvent, useContext, useState } from "react";
 
 const validEmail = "user@email.com";
 const validPassword = "password";
 
 const AuthPage = () => {
+  const { login } = useContext(AuthContext);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState<Record<string, string | null>>({
@@ -12,7 +15,6 @@ const AuthPage = () => {
     password: null,
   });
 
-  const router = useRouter();
 
   function handleLogin(event: FormEvent) {
     event.preventDefault();
@@ -20,9 +22,7 @@ const AuthPage = () => {
     if (errors.email || errors.password) {
       alert("Invalid Email/Password");
     }
-    if (email === validEmail && password === validPassword) {
-      router.push("/");
-    }
+    login(email, password);
   }
 
   function handleEmailChange(event: ChangeEvent<HTMLInputElement>) {

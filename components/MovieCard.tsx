@@ -1,4 +1,6 @@
+import { useContext } from "react";
 import { Movie } from "../types";
+import { AuthContext } from "@/context/AuthContext";
 
 type MovieCardProps = {
   movie: Movie;
@@ -13,9 +15,11 @@ export default function MovieCard({
   removeFromFavorites,
   isFavorite = false,
 }: MovieCardProps) {
-  function handleClick() {
-    alert(movie.overview);
-  }
+  // function handleClick() {
+  //   alert(movie.overview);
+  // }
+
+  const { isLoggedIn } = useContext(AuthContext);
 
   return (
     <div
@@ -28,23 +32,28 @@ export default function MovieCard({
       // onClick={handleClick}
     >
       <img
+        src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
+        alt={movie.title}
         style={{
           height: 300,
           width: 300,
         }}
-        src={movie.poster_path}
-        alt={movie.title}
       />
       <div>{movie.title}</div>
       <div>{movie.release_date}</div>
-      <div>Rating: {movie.vote_average}/10</div>
-      <button
-        onClick={() =>
-          isFavorite ? removeFromFavorites(movie) : addToFavorites(movie)
-        }
-      >
-        {isFavorite ? "Remove From Favorites" : "Add to Favorites"}
-      </button>
+      <div>Rating: {movie.vote_average}</div>
+      {isLoggedIn &&
+        <button
+          style={{
+            zIndex: 100,
+          }}
+          onClick={() => {
+            isFavorite ? removeFromFavorites(movie) : addToFavorites(movie);
+          }}
+        >
+          {isFavorite ? "Remove From Favorites" : "Add To Favorite"}
+        </button>
+      }
     </div>
   );
 }
