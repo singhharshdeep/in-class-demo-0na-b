@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Navbar from "../components/Navbar"; // This gives us access to the Navbar component
 import MovieCard from "../components/MovieCard";
 import { Movie } from "@/types";
 
@@ -99,7 +98,6 @@ export default function Home() {
 
   return (
     <div>
-      <Navbar name={appName} version={1} />
       <input
         style={{
           backgroundColor: "white",
