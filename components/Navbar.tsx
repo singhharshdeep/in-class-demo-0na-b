@@ -1,4 +1,6 @@
+import { AuthContext } from "@/context/AuthContext";
 import Link from "next/link";
+import { useContext } from "react";
 
 type NavbarProps = {
   name?: string;
@@ -10,6 +12,8 @@ props = {
 }
 */
 export default function Navbar({ name = "MovieCatalog" }: NavbarProps) {
+  const { isLoggedIn, user, logout } = useContext(AuthContext);
+
   return (
     <div
       style={{
@@ -21,7 +25,12 @@ export default function Navbar({ name = "MovieCatalog" }: NavbarProps) {
     >
       <div>{name}</div>
       <div>
-        <Link href="/auth">Login</Link>
+        {isLoggedIn && `Welcome ${user?.name}   `}
+        {isLoggedIn ? (
+          <button onClick={logout}>Logout</button>
+        ) : (
+          <Link href="/auth">Login</Link>
+        )}
       </div>
     </div>
   );
