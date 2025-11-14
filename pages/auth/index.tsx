@@ -1,9 +1,5 @@
 import { AuthContext } from "@/context/AuthContext";
-import { useRouter } from "next/router";
 import React, { ChangeEvent, FormEvent, useContext, useState } from "react";
-
-const validEmail = "user@email.com";
-const validPassword = "password";
 
 const AuthPage = () => {
   const { login } = useContext(AuthContext);
@@ -14,7 +10,6 @@ const AuthPage = () => {
     email: null,
     password: null,
   });
-
 
   function handleLogin(event: FormEvent) {
     event.preventDefault();
@@ -60,33 +55,29 @@ const AuthPage = () => {
   }
 
   return (
-    <div
-      style={{
-        marginTop: 24,
-      }}
-    >
-      <form onSubmit={handleLogin}>
+    <div className="flex justify-center mt-12">
+      <form className="border border-white p-6 rounded-2xl" onSubmit={handleLogin}>
         <div>
-          <label>Email</label>
+          <div className="text-xl">Email</div>
           <input
             value={email}
             onChange={handleEmailChange}
-            className="border-white border"
+            className="border-white border w-96 rounded-2xl p-2"
             type="email"
           />
-          {errors.email && <p style={{ color: "red" }}>{errors.email}</p>}
+          {errors.email && <p className="text-red-300">{errors.email}</p>}
         </div>
         <div>
-          <label>Password</label>
+          <div className="text-xl mt-4">Password</div>
           <input
             value={password}
             onChange={handlePasswordChange}
-            className="border-white border"
+            className="border-white border w-96 rounded-2xl p-2"
             type="password"
           />
-          {errors.password && <p style={{ color: "red" }}>{errors.password}</p>}
+          {errors.password && <p className="text-red-300">{errors.password}</p>}
         </div>
-        <button type="submit">Submit</button>
+        <button className="mt-6 border border-white p-2 rounded-2xl hover:bg-gray-300 hover:text-gray-800" type="submit">Submit</button>
       </form>
     </div>
   );

@@ -23,37 +23,29 @@ export default function MovieCard({
 
   return (
     <div
-      style={{
-        border: "1px solid white",
-        width: 300,
-        height: 400,
-        marginTop: 16,
-      }}
+      className="transition hover:scale-105 border border-white mt-4 w-[300px] h-[450px] rounded-2xl"
       // onClick={handleClick}
     >
       <img
         src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
         alt={movie.title}
-        style={{
-          height: 300,
-          width: 300,
-        }}
+        className="rounded-t-2xl w-[300px] h-[300px]"
       />
-      <div>{movie.title}</div>
-      <div>{movie.release_date}</div>
-      <div>Rating: {movie.vote_average}</div>
-      {isLoggedIn &&
-        <button
-          style={{
-            zIndex: 100,
-          }}
-          onClick={() => {
-            isFavorite ? removeFromFavorites(movie) : addToFavorites(movie);
-          }}
-        >
-          {isFavorite ? "Remove From Favorites" : "Add To Favorite"}
-        </button>
-      }
+      <div className="flex flex-col items-center text-xl">
+        <div>{movie.title}</div>
+        <div>{movie.release_date}</div>
+        <div>Rating: {movie.vote_average}</div>
+        {isLoggedIn && (
+          <button
+            className="hover:bg-gray-400 border border-white p-3 rounded-4xl"
+            onClick={() => {
+              isFavorite ? removeFromFavorites(movie) : addToFavorites(movie);
+            }}
+          >
+            {isFavorite ? "Remove From Favorites" : "Add To Favorite"}
+          </button>
+        )}
+      </div>
     </div>
   );
 }

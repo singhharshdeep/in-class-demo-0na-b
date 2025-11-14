@@ -15,17 +15,11 @@ export default function Navbar({ name = "MovieCatalog" }: NavbarProps) {
   const { isLoggedIn, user, logout } = useContext(AuthContext);
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "space-between",
-        border: "1px solid white",
-        padding: 8,
-      }}
-    >
+    <div className="flex justify-between border border-white p-6 text-2xl">
       <div>{name}</div>
       <div>
-        {isLoggedIn && `Welcome ${user?.name}   `}
+        {isLoggedIn && <span className="mr-5">Welcome {user?.name}</span>}
+        {isLoggedIn && <Link href="/favorites" className="mr-5">Favorites</Link>}
         {isLoggedIn ? (
           <button onClick={logout}>Logout</button>
         ) : (
