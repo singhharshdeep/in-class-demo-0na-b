@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { Movie } from "../types";
 import { AuthContext } from "@/context/AuthContext";
+import { useRouter } from "next/router";
 
 type MovieCardProps = {
   movie: Movie;
@@ -15,16 +16,17 @@ export default function MovieCard({
   removeFromFavorites,
   isFavorite = false,
 }: MovieCardProps) {
-  // function handleClick() {
-  //   alert(movie.overview);
-  // }
+  const router = useRouter();
+  function handleClick() {
+    router.push(`/movies/${movie.id}`);
+  }
 
   const { isLoggedIn } = useContext(AuthContext);
 
   return (
     <div
       className="transition hover:scale-105 border border-white mt-4 w-[300px] h-[450px] rounded-2xl"
-      // onClick={handleClick}
+      onClick={handleClick}
     >
       <img
         src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
@@ -35,7 +37,7 @@ export default function MovieCard({
         <div>{movie.title}</div>
         <div>{movie.release_date}</div>
         <div>Rating: {movie.vote_average}</div>
-        {isLoggedIn && (
+        {isLoggedIn ? (
           <button
             className="hover:bg-gray-400 border border-white p-3 rounded-4xl"
             onClick={() => {
@@ -44,7 +46,7 @@ export default function MovieCard({
           >
             {isFavorite ? "Remove From Favorites" : "Add To Favorite"}
           </button>
-        )}
+        ) : null}
       </div>
     </div>
   );
