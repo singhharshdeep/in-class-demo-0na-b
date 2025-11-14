@@ -1,12 +1,10 @@
 import React, { useContext, useState } from "react";
 import MovieCard from "../components/MovieCard";
 import { MoviesContext } from "@/context/MoviesContext";
-import { AuthContext } from "@/context/AuthContext";
 
 export default function Home() {
   const { movies, favoriteMovies, addToFavorites, removeFromFavorites } =
     useContext(MoviesContext);
-  const { isLoggedIn } = useContext(AuthContext);
 
   const [filteredMovies, setFilteredMovies] = useState(movies);
 
@@ -19,53 +17,25 @@ export default function Home() {
   }
 
   return (
-    <div>
+    <div className="bg-gray-600">
       <input
-        style={{
-          backgroundColor: "white",
-          marginTop: 16,
-          color: "black",
-        }}
+        className="mt-4 p-4 text-white border-white border w-2xl"
         onChange={(event) => searchMovies(event.target.value)}
         placeholder="Search Movies"
       />
       {filteredMovies.length > 0 ? (
-        filteredMovies.map((movie) => (
-          <MovieCard
-            movie={movie}
-            addToFavorites={addToFavorites}
-            isFavorite={favoriteMovies.includes(movie)}
-            removeFromFavorites={removeFromFavorites}
-          />
-        ))
+        <div className="grid grid-cols-3">
+          {filteredMovies.map((movie) => (
+            <MovieCard
+              movie={movie}
+              addToFavorites={addToFavorites}
+              isFavorite={favoriteMovies.includes(movie)}
+              removeFromFavorites={removeFromFavorites}
+            />
+          ))}
+        </div>
       ) : (
-        <p style={{ marginTop: 16 }}>No movies found</p>
-      )}
-
-      {isLoggedIn && (
-        <>
-          <div
-            style={{
-              fontSize: 32,
-              marginTop: 16,
-            }}
-          >
-            Favorites
-          </div>
-
-          {favoriteMovies.length > 0 ? (
-            favoriteMovies.map((movie) => (
-              <MovieCard
-                movie={movie}
-                addToFavorites={addToFavorites}
-                isFavorite={true}
-                removeFromFavorites={removeFromFavorites}
-              />
-            ))
-          ) : (
-            <p style={{ marginTop: 16 }}>No favorites found</p>
-          )}
-        </>
+        <p className="mt-4 text-xl">No movies found</p>
       )}
     </div>
   );
