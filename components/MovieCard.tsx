@@ -40,7 +40,8 @@ export default function MovieCard({
         {isLoggedIn ? (
           <button
             className="hover:bg-gray-400 border border-white p-3 rounded-4xl"
-            onClick={() => {
+            onClick={(e) => {
+              e.stopPropagation();
               isFavorite ? removeFromFavorites(movie) : addToFavorites(movie);
             }}
           >
