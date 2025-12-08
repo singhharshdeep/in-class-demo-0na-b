@@ -14,10 +14,9 @@ const Favorites = () => {
         <div className="grid grid-cols-3">
           {favoriteMovies.map((movie) => (
             <MovieCard movie={movie}>
-              <Poster poster_path={movie.poster_path} title={movie.title} />
+              <Poster poster_path={movie.Poster} title={movie.Title} />
               <MovieDetails>
-                <MovieTitle title={movie.title} />
-                <MovieRating rating={movie.vote_average} />
+                <MovieTitle title={movie.Title} />
                 <FavoritesButton
                   movie={movie}
                   addToFavorites={addToFavorites}
