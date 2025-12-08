@@ -1,5 +1,12 @@
 import React, { useContext, useState } from "react";
-import MovieCard from "../components/MovieCard";
+import MovieCard, {
+  FavoritesButton,
+  MovieDetails,
+  MovieRating,
+  MovieRelease,
+  MovieTitle,
+  Poster,
+} from "../components/MovieCard";
 import { MoviesContext } from "@/context/MoviesContext";
 
 export default function Home() {
@@ -26,12 +33,20 @@ export default function Home() {
       {filteredMovies.length > 0 ? (
         <div className="grid grid-cols-3">
           {filteredMovies.map((movie) => (
-            <MovieCard
-              movie={movie}
-              addToFavorites={addToFavorites}
-              isFavorite={favoriteMovies.includes(movie)}
-              removeFromFavorites={removeFromFavorites}
-            />
+            <MovieCard movie={movie}>
+              <Poster poster_path={movie.poster_path} title={movie.title} />
+              <MovieDetails>
+                <MovieTitle title={movie.title} />
+                <MovieRating rating={movie.vote_average} />
+                <MovieRelease release_date={movie.release_date} />
+                <FavoritesButton
+                  movie={movie}
+                  addToFavorites={addToFavorites}
+                  isFavorite={favoriteMovies.includes(movie)}
+                  removeFromFavorites={removeFromFavorites}
+                />
+              </MovieDetails>
+            </MovieCard>
           ))}
         </div>
       ) : (

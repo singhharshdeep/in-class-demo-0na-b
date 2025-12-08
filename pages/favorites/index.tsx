@@ -1,31 +1,7 @@
-import MovieCard from "@/components/MovieCard";
-import { MoviesContext } from "@/context/MoviesContext";
-import React, { useContext } from "react";
+import { lazy } from "react";
 
-const Favorites = () => {
-  const { favoriteMovies, addToFavorites, removeFromFavorites } =
-    useContext(MoviesContext);
+const Favorites =  lazy(() => import("@/components/Favorites"));
 
-  return (
-    <>
-      <div className="text-2xl mt-4">Favorites</div>
-
-      {favoriteMovies.length > 0 ? (
-        <div className="grid grid-cols-3">
-          {favoriteMovies.map((movie) => (
-            <MovieCard
-              movie={movie}
-              addToFavorites={addToFavorites}
-              isFavorite={true}
-              removeFromFavorites={removeFromFavorites}
-            />
-          ))}
-        </div>
-      ) : (
-        <p className="mt-4">No favorites found</p>
-      )}
-    </>
-  );
-};
-
-export default Favorites;
+export default function FavoritesPage() {
+  return <Favorites />
+}
