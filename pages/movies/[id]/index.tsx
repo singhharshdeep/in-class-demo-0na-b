@@ -1,6 +1,6 @@
 import { MoviesContext } from "@/context/MoviesContext";
 import { useRouter } from "next/router";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 
 export default function MovieDetailsPage() {
   const router = useRouter();
@@ -9,6 +9,10 @@ export default function MovieDetailsPage() {
   const { movies } = useContext(MoviesContext);
 
   const foundMovie = movies.find((movie) => movie.id.toString() === id);
+
+  useEffect(() => {
+    document.title = foundMovie?.title
+  }, [foundMovie, id]);
 
   return foundMovie ? (
     <div className="flex mt-4">
